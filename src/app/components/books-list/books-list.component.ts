@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -25,12 +25,17 @@ export class BooksListComponent {
   constructor(
      private bookService: BookService,
      public dialog: MatDialog,
+     private router: Router
   ) {}
 
   ngOnInit(): void {
      this.bookService.getAll().subscribe(books => {
        this.books = books;
      });
+  }
+
+  navigateToEdit(id: number): void {
+    this.router.navigate(['/editar-livro', id]);
   }
 
   openRemoveDialog(book: Book): void {
