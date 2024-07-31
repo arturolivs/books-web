@@ -19,4 +19,16 @@ import { environment } from "../../../environment";
   create(book: Book): Observable<any> {
     return this.http.post(this.apiUrl, book);
   }
+
+  getById(id: string): Observable<any> {
+     return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  remove(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+ }
+
+  update(id: string, book: Book): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, book);
+  }
  }

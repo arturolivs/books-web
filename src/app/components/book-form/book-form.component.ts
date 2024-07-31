@@ -21,6 +21,8 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book.model';
+import { MatListModule } from '@angular/material/list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -31,21 +33,22 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 const imports = [
-        CommonModule,
-        RouterOutlet,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-    ]
+  CommonModule,
+  FormsModule,
+  RouterModule,
+  ReactiveFormsModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatButtonModule,
+  MatListModule,
+]
 
 @Component({
   selector: 'app-book-form',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: imports,
+  imports,
   templateUrl: './book-form.component.html',
   styleUrl: './book-form.component.scss'
 })
@@ -61,6 +64,10 @@ export class BookFormComponent {
 
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
+      authorId: ['', Validators.required],
+      genreId: ['', Validators.required],
+      description: ['', Validators.required],
+      publicationYear: ['', Validators.required],
      });
   }
 

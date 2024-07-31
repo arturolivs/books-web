@@ -8,17 +8,19 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { Book } from '../../models/book.model';
 import { BookService } from '../../services/book.service';
+import { RemoveBookDialogComponent } from '../remove-book-dialog/remove-book-dialog.component';
+import { ListComponent } from '../list/list.component';
 
 @Component({
   selector: 'app-books-list',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, RouterModule],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, RouterModule,ListComponent],
   templateUrl: './books-list.component.html',
   styleUrl: './books-list.component.scss'
 })
 export class BooksListComponent {
-  displayedColumns: string[] = ['title', 'actions'];
-  data: Book[] = [];
+  displayedColumns: string[] = ['title','authorId','genreId','publicationYear', 'actions'];
+  books: Book[] = [];
 
   constructor(
      private bookService: BookService,
@@ -27,8 +29,24 @@ export class BooksListComponent {
 
   ngOnInit(): void {
      this.bookService.getAll().subscribe(books => {
-       this.data = books;
+       this.books = books;
      });
   }
- }
+
+  openRemoveDialog(book: Book): void {
+    const dialogRef = this.dialog.open(RemoveBookDialogComponent, {
+      data: book
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.bookService.remove(book.id).subscribe(() => {
+          this.bookService.getAll().subscribe(books => {
+            this.books = books;
+          });
+        });
+      }
+    });
+  }
+}
 
