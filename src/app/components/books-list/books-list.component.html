@@ -1,5 +1,9 @@
 <h1>Livros</h1>
 
+<button mat-fab color="primary" aria-label="Novo" routerLink="/novo-livro">
+  <mat-icon>add</mat-icon>
+</button>
+
 <table mat-table [dataSource]="data">
  <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> Título </th>

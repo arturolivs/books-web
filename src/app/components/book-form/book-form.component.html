@@ -1,0 +1,13 @@
+<h1>Cadastro de Livro</h1>
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Título</mat-label>
+    <input matInput formControlName="title">
+    <mat-error *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched || bookForm.touched">
+      Título é obrigatório
+    </mat-error>
+ </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Cadastrar</button>
+  <button type="button" mat-raised-button color="basic" routerLink="/livros">Voltar</button>
+</form>

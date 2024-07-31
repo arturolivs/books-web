@@ -15,4 +15,8 @@ import { environment } from "../../../environment";
   getAll(): Observable<Book[]> {
     return this.http.get<Book[]>(this.apiUrl);
   }
+
+  create(book: Book): Observable<any> {
+    return this.http.post(this.apiUrl, book);
+  }
  }
