@@ -9,12 +9,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { Book } from '../../models/book.model';
 import { BookService } from '../../services/book.service';
 import { RemoveBookDialogComponent } from '../remove-book-dialog/remove-book-dialog.component';
-import { ListComponent } from '../list/list.component';
 
 @Component({
   selector: 'app-books-list',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, RouterModule,ListComponent],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './books-list.component.html',
   styleUrl: './books-list.component.scss'
 })
