@@ -1,0 +1,13 @@
+<h1>Alterar Gênero</h1>
+<form [formGroup]="genreForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name">
+    <mat-error *ngIf="genreForm.get('name')?.invalid && genreForm.get('name')?.touched || genreForm.touched">
+      Nome é obrigatório
+    </mat-error>
+ </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Alterar</button>
+  <button type="button" mat-raised-button color="basic" routerLink="/generos">Voltar</button>
+</form>
