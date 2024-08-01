@@ -1,0 +1,31 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15dvh;
+  background: rgb(136,70,5);
+  background: linear-gradient(45deg, rgba(136,70,5,1) 0%, rgba(157,101,46,1) 45%, rgba(136,70,5,1) 100%);
+
+  nav {
+    a {
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15dvh;
+}
+
+
+

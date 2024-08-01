@@ -1,0 +1,46 @@
+<h1>Cadastro de Livro</h1>
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Título</mat-label>
+    <input matInput formControlName="title">
+    <mat-error *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched || bookForm.touched">
+      Título é obrigatório
+    </mat-error>
+ </mat-form-field>
+
+ <mat-form-field>
+  <mat-label>Gênero</mat-label>
+  <input matInput formControlName="genreId">
+  <mat-error *ngIf="bookForm.get('genreId')?.invalid && bookForm.get('genreId')?.touched || bookForm.touched">
+    Gênero é obrigatório
+  </mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Autor</mat-label>
+  <input matInput formControlName="authorId">
+  <mat-error *ngIf="bookForm.get('authorId')?.invalid && bookForm.get('authorId')?.touched || bookForm.touched">
+    Autor é obrigatório
+  </mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Descrição</mat-label>
+  <textarea matInput  formControlName="description"></textarea>
+  <mat-error *ngIf="bookForm.get('description')?.invalid && bookForm.get('description')?.touched || bookForm.touched">
+    Descrição é obrigatório
+  </mat-error>
+</mat-form-field>
+
+
+<mat-form-field>
+  <mat-label>Ano de publicação</mat-label>
+  <input matInput formControlName="publicationYear">
+  <mat-error *ngIf="bookForm.get('publicationYear')?.invalid && bookForm.get('publicationYear')?.touched || bookForm.touched">
+    Ano de publicação é obrigatório
+  </mat-error>
+</mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Cadastrar</button>
+  <button type="button" mat-raised-button color="basic" routerLink="/livros">Voltar</button>
+</form>
