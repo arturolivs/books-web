@@ -1,0 +1,33 @@
+<h1>Alterar Autor</h1>
+<form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="firstName">
+    <mat-error *ngIf="authorForm.get('firstName')?.invalid && authorForm.get('firstName')?.touched || authorForm.touched">
+      Nome é obrigatório
+    </mat-error>
+ </mat-form-field>
+
+ <mat-form-field>
+  <mat-label>Sobrenome</mat-label>
+  <input matInput formControlName="lastName">
+  <mat-error *ngIf="authorForm.get('lastName')?.invalid && authorForm.get('lastName')?.touched || authorForm.touched">
+    Sobrenome é obrigatório
+  </mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Nascimento</mat-label>
+  <input matInput formControlName="birthDate" [matDatepicker]="picker">
+  <mat-hint>DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <mat-error *ngIf="authorForm.get('birthDate')?.invalid && authorForm.get('birthDate')?.touched || authorForm.touched">
+    Data de nascimento é obrigatório
+  </mat-error>
+</mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Alterar</button>
+  <button type="button" mat-raised-button color="basic" routerLink="/generos">Voltar</button>
+</form>
+
