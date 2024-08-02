@@ -23,6 +23,9 @@ import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book.model';
 import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { GenreService } from '../../services/genre.service';
+import { AuthorService } from '../../services/author.service';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -42,7 +45,13 @@ const imports = [
   MatDatepickerModule,
   MatButtonModule,
   MatListModule,
+  MatSelectModule
 ]
+
+type SelectOptions = {
+  label: string
+  value: string
+}
 
 @Component({
   selector: 'app-book-form',
@@ -55,9 +64,13 @@ const imports = [
 export class BookFormComponent {
   bookForm: FormGroup;
   matcher = new MyErrorStateMatcher();
+  genreOptions: SelectOptions[] = [];
+  authorOptions: SelectOptions[] = [];
 
   constructor(
     private bookService: BookService,
+    private genreService: GenreService,
+    private authorService: AuthorService,
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar) {
@@ -69,6 +82,38 @@ export class BookFormComponent {
       description: ['', Validators.required],
       publicationYear: ['', Validators.required],
      });
+  }
+
+  ngOnInit(): void {
+    this.genreService.getAll().subscribe({
+      next: (response) => {
+        response.forEach((genre) => {
+          this.genreOptions.push({label: genre.name, value:genre.id})
+        })
+
+      },
+      error: ({ error }) => {
+        this.snackBar.open(error.message, 'Fechar', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      }
+    });
+
+    this.authorService.getAll().subscribe({
+      next: (response) => {
+        response.forEach((author) => {
+          this.authorOptions.push({label: author.firstName + " " + author.firstName, value:author.id})
+        })
+
+      },
+      error: ({ error }) => {
+        this.snackBar.open(error.message, 'Fechar', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      }
+    });
   }
 
   onSubmit(): void {
