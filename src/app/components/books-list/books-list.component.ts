@@ -24,7 +24,7 @@ export class BooksListComponent {
   constructor(
      private bookService: BookService,
      public dialog: MatDialog,
-     private router: Router
+     private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +44,15 @@ export class BooksListComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.bookService.remove(book.id).subscribe(() => {
-          this.bookService.getAll().subscribe(books => {
-            this.books = books;
-          });
-        });
+        this.bookService.remove(book.id).subscribe(
+          {
+            next:  () => {
+              this.bookService.getAll().subscribe(books => {
+                this.books = books;
+              });
+            },
+           }
+         );
       }
     });
   }

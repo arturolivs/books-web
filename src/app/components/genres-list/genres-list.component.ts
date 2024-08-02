@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { GenreService } from '../../services/genre.service';
 import { Genre } from '../../models/genre.model';
 import { RemoveGenreDialogComponent } from '../remove-genre-dialog/remove-genre-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-genres-list',
@@ -24,7 +25,8 @@ export class GenresListComponent {
   constructor(
      private genreService: GenreService,
      public dialog: MatDialog,
-     private router: Router
+     private router: Router,
+     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -44,13 +46,26 @@ export class GenresListComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.genreService.remove(genre.id).subscribe(() => {
-          this.genreService.getAll().subscribe(genres => {
-            this.genres = genres;
-          });
-        });
+        this.genreService.remove(genre.id).subscribe(
+          {
+            next:  () => {
+              this.genreService.getAll().subscribe(genres => {
+                this.genres = genres;
+              });
+            },
+            error: ({ error }) => {
+               this.snackBar.open(error.message, 'Fechar', {
+                duration: 3000,
+                panelClass: ['error-snackbar']
+              });
+            }
+           }
+         );
       }
     });
+
   }
 }
+
+
 
