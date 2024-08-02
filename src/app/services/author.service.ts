@@ -8,7 +8,7 @@ import { Author } from "../models/author.model";
   providedIn: 'root'
  })
  export class AuthorService {
-  private apiUrl = `${environment.apiUrl}/api/author`;
+  private apiUrl = `${environment.apiUrl}/v1/authors`;
 
   constructor(private http: HttpClient) {}
 

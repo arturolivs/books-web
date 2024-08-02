@@ -18,13 +18,13 @@ import { RemoveBookDialogComponent } from '../remove-book-dialog/remove-book-dia
   styleUrl: './books-list.component.scss'
 })
 export class BooksListComponent {
-  displayedColumns: string[] = ['title','authorId','genreId','publicationYear', 'actions'];
+  displayedColumns: string[] = ['title','author','genre','publicationYear', 'actions'];
   books: Book[] = [];
 
   constructor(
      private bookService: BookService,
      public dialog: MatDialog,
-     private router: Router
+     private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +44,15 @@ export class BooksListComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.bookService.remove(book.id).subscribe(() => {
-          this.bookService.getAll().subscribe(books => {
-            this.books = books;
-          });
-        });
+        this.bookService.remove(book.id).subscribe(
+          {
+            next:  () => {
+              this.bookService.getAll().subscribe(books => {
+                this.books = books;
+              });
+            },
+           }
+         );
       }
     });
   }

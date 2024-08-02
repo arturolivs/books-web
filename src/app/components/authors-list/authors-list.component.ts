@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { RemoveAuthorDialogComponent } from '../remove-author-dialog/remove-author-dialog.component';
 import { Author } from '../../models/author.model';
 import { AuthorService } from '../../services/author.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class AuthorsListComponent {
   constructor(
      private authorService: AuthorService,
      public dialog: MatDialog,
-     private router: Router
+     private router: Router,
+     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +46,21 @@ export class AuthorsListComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.authorService.remove(author.id).subscribe(() => {
-          this.authorService.getAll().subscribe(authors => {
-            this.authors = authors;
-          });
-        });
+        this.authorService.remove(author.id).subscribe(
+          {
+            next:  () => {
+              this.authorService.getAll().subscribe(authors => {
+                this.authors = authors;
+              });
+            },
+            error: ({ error }) => {
+               this.snackBar.open(error.message, 'Fechar', {
+                duration: 3000,
+                panelClass: ['error-snackbar']
+              });
+            }
+           }
+         );
       }
     });
   }

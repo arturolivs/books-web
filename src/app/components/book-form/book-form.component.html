@@ -10,7 +10,11 @@
 
  <mat-form-field>
   <mat-label>Gênero</mat-label>
-  <input matInput formControlName="genreId">
+  <mat-select formControlName="genreId">
+    <mat-option *ngFor="let genre of genreOptions" [value]="genre.value">
+      {{ genre.label }}
+    </mat-option>
+  </mat-select>
   <mat-error *ngIf="bookForm.get('genreId')?.invalid && bookForm.get('genreId')?.touched || bookForm.touched">
     Gênero é obrigatório
   </mat-error>
@@ -18,7 +22,11 @@
 
 <mat-form-field>
   <mat-label>Autor</mat-label>
-  <input matInput formControlName="authorId">
+  <mat-select formControlName="authorId">
+    <mat-option *ngFor="let author of authorOptions" [value]="author.value">
+      {{ author.label }}
+    </mat-option>
+  </mat-select>
   <mat-error *ngIf="bookForm.get('authorId')?.invalid && bookForm.get('authorId')?.touched || bookForm.touched">
     Autor é obrigatório
   </mat-error>

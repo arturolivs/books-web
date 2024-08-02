@@ -3,6 +3,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
 
   display: flex;
   align-items: center;
@@ -12,6 +13,9 @@ header {
   background: linear-gradient(45deg, rgba(136,70,5,1) 0%, rgba(157,101,46,1) 45%, rgba(136,70,5,1) 100%);
 
   nav {
+    display: flex;
+    column-gap: 1rem;
+
     a {
       font-size: 1.5rem;
       text-decoration: none;
