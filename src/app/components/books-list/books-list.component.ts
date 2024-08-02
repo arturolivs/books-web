@@ -18,7 +18,7 @@ import { RemoveBookDialogComponent } from '../remove-book-dialog/remove-book-dia
   styleUrl: './books-list.component.scss'
 })
 export class BooksListComponent {
-  displayedColumns: string[] = ['title','authorId','genreId','publicationYear', 'actions'];
+  displayedColumns: string[] = ['title','author','genre','publicationYear', 'actions'];
   books: Book[] = [];
 
   constructor(
